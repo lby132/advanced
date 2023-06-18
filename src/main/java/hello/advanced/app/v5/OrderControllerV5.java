@@ -19,14 +19,22 @@ public class OrderControllerV5 {
         this.template = new TraceTemplate(logTrace);
     }
 
+//    @GetMapping("/v5/request")
+//    public String request(String itemId) {
+//       return template.execute("OrderController.request()", new TraceCallback<String>() {
+//            @Override
+//            public String call() {
+//                orderService.orderItem(itemId);
+//                return "ok";
+//            }
+//        });
+//    }
+
     @GetMapping("/v5/request")
     public String request(String itemId) {
-        return template.execute("OrderController.request()", new TraceCallback<String>() {
-            @Override
-            public String call() {
-                orderService.orderItem(itemId);
-                return "ok";
-            }
+        return template.execute("OrderController.request()", () -> {
+            orderService.orderItem(itemId);
+            return "ok";
         });
     }
 }
