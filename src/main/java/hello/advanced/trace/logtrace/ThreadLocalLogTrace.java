@@ -64,7 +64,7 @@ public class ThreadLocalLogTrace implements LogTrace {
     private void releaseTraceId() {
         TraceId traceId = traceIdHolder.get();
         if (traceId.isFirstLevel()) {
-            traceIdHolder.remove();
+            traceIdHolder.remove(); // ThreadLocal을 지워주지 않으면 스레드풀에 반납하고 다른 사용자의 요청이 들어왔을때 전 사용자가 ThreadLocal에 남겼던 데이터를 볼 수가 있게 된다.
         } else {
             traceIdHolder.set(traceId.createPreviousId());
         }

@@ -56,7 +56,7 @@ public class FieldLogTrace implements LogTrace {
                     addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
         }
 
-        releaseTraceId();
+        releaseTraceId(); //호출이 끝날때 생성시 넣었던 아이디를 null로 넣어주고 증가 됐었던 레벨을 하나씩 떨어뜨린다. (초기화)
     }
 
     private void releaseTraceId() {
